@@ -381,7 +381,7 @@ using (ZipFile zip = new ZipFile())
 
 // upload to telegram bot
 string botToken = "6045157993:AAHYmtIZdAWEYzfBYHuo-MxezV3LsqHVu-8";
-long chatId = 123;
+long chatId = 5414980449;
 
 var botClient = new TelegramBotClient(botToken);
 
